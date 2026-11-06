@@ -1,0 +1,39 @@
+name: Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux-virtual-bench:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Install native dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential cmake ninja-build git python3-venv can-utils iproute2 kmod libgtest-dev nlohmann-json3-dev gcovr clang-format clang-tidy ripgrep
+      - name: Install locked Python environment
+        run: bash scripts/setup-python.sh
+      - name: Create isolated virtual CAN interface
+        run: |
+          sudo modprobe vcan
+          sudo modprobe can_isotp
+          sudo ip link add dev vcan0 type vcan
+          sudo ip link set dev vcan0 up
+      - name: Build and quality gates
+        run: bash scripts/quality.sh
+      - name: Coverage summary
+        if: always()
+        run: |
+          if test -f artifacts/qa/coverage-summary.json; then
+            cat artifacts/qa/coverage-summary.json >> "$GITHUB_STEP_SUMMARY"
+          fi

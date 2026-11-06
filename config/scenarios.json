@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "scenarios": {
+    "baseline": {"node": null, "fault": "none"},
+    "drop_bms_data": {"node": "bms", "fault": "drop_data"},
+    "corrupt_hvac_crc": {"node": "hvac", "fault": "bad_crc"},
+    "body_sequence_freeze": {"node": "body", "fault": "freeze_counter"},
+    "bms_overtemperature": {"node": "bms", "fault": "overtemperature"},
+    "lin_bad_checksum": {"node": "hvac", "fault": "lin_bad_checksum"},
+    "node_exit": {"node": "body", "fault": "exit"}
+  }
+}

@@ -8,12 +8,31 @@
       "binaryDir": "$env{HOME}/.cache/autodiag/build/debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "Python3_EXECUTABLE": "$env{HOME}/.venvs/autodiag/bin/python"
       }
+    },
+    {
+      "name": "linux-sanitize",
+      "inherits": "linux-debug",
+      "binaryDir": "$env{HOME}/.cache/autodiag/build/sanitize",
+      "cacheVariables": {"AUTODIAG_SANITIZERS": "ON"}
+    },
+    {
+      "name": "linux-coverage",
+      "inherits": "linux-debug",
+      "binaryDir": "$env{HOME}/.cache/autodiag/build/coverage",
+      "cacheVariables": {"AUTODIAG_COVERAGE": "ON"}
     }
   ],
-  "buildPresets": [{"name": "linux-debug", "configurePreset": "linux-debug"}],
+  "buildPresets": [
+    {"name": "linux-debug", "configurePreset": "linux-debug"},
+    {"name": "linux-sanitize", "configurePreset": "linux-sanitize"},
+    {"name": "linux-coverage", "configurePreset": "linux-coverage"}
+  ],
   "testPresets": [
-    {"name": "linux-debug", "configurePreset": "linux-debug", "output": {"outputOnFailure": true}}
+    {"name": "linux-debug", "configurePreset": "linux-debug", "output": {"outputOnFailure": true}},
+    {"name": "linux-sanitize", "configurePreset": "linux-sanitize", "output": {"outputOnFailure": true}},
+    {"name": "linux-coverage", "configurePreset": "linux-coverage", "output": {"outputOnFailure": true}}
   ]
 }

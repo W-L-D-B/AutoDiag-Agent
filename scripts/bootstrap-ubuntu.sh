@@ -13,7 +13,7 @@ apt-get install -y --no-install-recommends \
   build-essential cmake ninja-build gdb git openssh-client ca-certificates curl \
   python3 python3-venv python3-pip python3-dev \
   can-utils iproute2 kmod pkg-config clang-format clang-tidy \
-  unzip zip jq ripgrep sudo
+  unzip zip jq ripgrep sudo libgtest-dev nlohmann-json3-dev gcovr
 
 if ! id autodiag >/dev/null 2>&1; then
   useradd --create-home --shell /bin/bash autodiag
@@ -41,5 +41,6 @@ else
   exit 1
 fi
 chown -h autodiag:autodiag "$project_link"
+python3 "$project_root/scripts/configure-wsl.py"
 
 echo "System dependencies installed. Set the distro default user to autodiag from Windows."
