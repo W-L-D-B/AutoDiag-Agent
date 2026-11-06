@@ -1,0 +1,12 @@
+[Unit]
+Description=AutoDiag virtual CAN development interface
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/autodiag-vcan up
+ExecStop=/usr/local/sbin/autodiag-vcan down
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

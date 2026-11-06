@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+case "${1:-}" in
+  up)
+    /usr/sbin/modprobe vcan
+    /usr/sbin/modprobe can_raw
+    /usr/sbin/modprobe can_isotp
+    if ! /usr/sbin/ip link show dev vcan0 >/dev/null 2>&1; then
+      /usr/sbin/ip link add dev vcan0 type vcan
+    fi
+    /usr/sbin/ip link set dev vcan0 up
+    /usr/sbin/ip -details link show dev vcan0
+    ;;
+  down)
+    if /usr/sbin/ip link show dev vcan0 >/dev/null 2>&1; then
+      /usr/sbin/ip link delete dev vcan0
+    fi
+    ;;
+  *)
+    echo "Usage: autodiag-vcan {up|down}" >&2
+    exit 2
+    ;;
+esac

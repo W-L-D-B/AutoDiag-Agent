@@ -1,0 +1,37 @@
+# Local credentials and machine-specific files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+venv/
+.codex/
+tmp/
+.cache/
+
+# Build and Python outputs
+build/
+out/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+coverage/
+
+# IDE / host configuration
+.idea/
+.vscode/
+CMakeUserPresets.json
+local.properties
+.DS_Store
+Thumbs.db
+
+# Generated runtime data
+logs/
+artifacts/
+
+# Personal career research kept locally
+docs/小米汽车_C++实习_Agent项目调研与方案.md

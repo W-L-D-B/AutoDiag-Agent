@@ -1,0 +1,10 @@
+# Direct development dependencies; exact resolved environment is recorded in requirements-dev.lock.
+mcp==2.3.0
+pydantic==2.14.3
+httpx==0.28.1
+python-can==4.6.1
+cantools==45.1.2
+udsoncan==1.26.1
+PyYAML==6.0.3
+pytest==9.2.0
+ruff==0.17.4
