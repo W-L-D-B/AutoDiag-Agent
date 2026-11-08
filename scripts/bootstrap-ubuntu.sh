@@ -41,6 +41,6 @@ else
   exit 1
 fi
 chown -h autodiag:autodiag "$project_link"
-python3 "$project_root/scripts/configure-wsl.py"
+python3 "$project_root/scripts/configure_wsl.py"
 
 echo "System dependencies installed. Set the distro default user to autodiag from Windows."

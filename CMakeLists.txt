@@ -77,11 +77,15 @@ if(BUILD_TESTING)
     add_test(NAME virtual_bench_integration
         COMMAND "${Python3_EXECUTABLE}" -m pytest -q tests/integration
             "--junitxml=${CMAKE_BINARY_DIR}/python-integration.xml")
-    set_tests_properties(python_contract virtual_bench_integration PROPERTIES
+    add_test(NAME python_agent
+        COMMAND "${Python3_EXECUTABLE}" -m pytest -q tests/agent
+            "--junitxml=${CMAKE_BINARY_DIR}/python-agent.xml")
+    set_tests_properties(python_contract virtual_bench_integration python_agent PROPERTIES
         WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
         ENVIRONMENT "AUTODIAG_BUILD_DIR=$<TARGET_FILE_DIR:autodiag-ecu>"
         TIMEOUT 180
         RUN_SERIAL TRUE)
     set_tests_properties(python_contract PROPERTIES LABELS contract)
     set_tests_properties(virtual_bench_integration PROPERTIES LABELS integration)
+    set_tests_properties(python_agent PROPERTIES LABELS agent)
 endif()

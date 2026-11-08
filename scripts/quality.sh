@@ -33,8 +33,8 @@ mapfile -t cpp_files < <(rg --files include src apps tests/unit tools -g '*.cpp'
 clang-format --dry-run --Werror "${cpp_files[@]}"
 mapfile -t production_sources < <(rg --files src apps -g '*.cpp')
 clang-tidy -p "$HOME/.cache/autodiag/build/debug" "${production_sources[@]}" --quiet
-python -m ruff check scripts tools tests
-python -m ruff format --check scripts tools tests
+python -m ruff check scripts tools tests autodiag_agent evaluation android
+python -m ruff format --check scripts tools tests autodiag_agent evaluation android
 bash -n scripts/*.sh scripts/autodiag-vcan
 git diff --check
 echo 'All local quality gates passed.'

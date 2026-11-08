@@ -1,6 +1,6 @@
 # AutoDiag-Agent
 
-车载故障诊断与联调 Agent 项目。现已交付三个独立 C++ ECU、CAN/DBC、LIN 温度模型、九类正常/故障场景及独立日志回放，并新增原生 ISO-TP/UDS 诊断、持续采集服务、Unix/TCP 接口和 Android AIDL 客户端。模型 Agent 按后续里程碑验收。
+车载故障诊断与联调 Agent 项目。三个 C++ ECU 经虚拟 CAN 与原生 ISO-TP/UDS 提供实时信号及诊断服务，Python Agent 调用受限工具取证，Android 通过独立进程 AIDL 客户端查看信号、提交问题并呈现证据报告。包含九个台架场景、断点恢复和固定 60 项评测框架；模型成绩以实际评测报告为准。
 
 远程仓库：<https://github.com/W-L-D-B/AutoDiag-Agent>
 
@@ -79,6 +79,22 @@ python -m scripts.rpc_client --method read_dtcs --params '{"node":"bms"}'
 
 `53506 = 0xD102`，是 BMS 温度 DID。Ctrl+C 会停止该次启动的 ECU、服务和网关。TCP 仅监听 `127.0.0.1:18770`，不是公网接口。诊断发送后超时会隔离该 ECU 的诊断通道，重新运行整套台架恢复，详见接口契约。
 
+## 启动诊断 Agent
+
+将 `.env.example` 复制为未跟踪的 `.env`，本地填入模型凭据。WSL 环境中：
+
+```bash
+python -m scripts.live_stack --with-agent --scenario bms_overtemperature
+```
+
+在另一个已激活环境的 WSL 终端：
+
+```bash
+python -m scripts.ask_agent --question 'BMS温度是否异常？请读取DID和DTC后判断。' --output artifacts/my-task.json
+```
+
+也可在 Android 的“Agent 诊断任务”区域提交。模型 API 只由 Python 访问，API key 不进入 APK。八个受限工具使用同一注册表，同时提供 MCP stdio 入口。已通过真实 DeepSeek 推理、Android 完整提交和进程强杀后的检查点恢复；用法、限制和费用控制见 [Agent 运行说明](docs/agent-runtime.md)。
+
 ## 质量检查
 
 ```bash
@@ -114,7 +130,7 @@ bash scripts/setup-python.sh
 
 `origin` 使用 SSH。专用 Linux 用户通过 Windows OpenSSH 访问现有密钥，不向仓库或 WSL 复制私钥。`.env`、`.codex`、临时 PDF 预览、构建目录和运行日志均已忽略。
 
-本地依赖初始化不等于业务功能完成；模型 API 信息需要自行填写到未跟踪的 `.env`。不要把密钥提交到 Git。
+模型 API 信息填写到未跟踪的 `.env`。不要把密钥提交到 Git。开发接口只绑定本机回环地址，当前系统用于纯软件虚拟台架。
 
 ## 设计资料
 
@@ -130,5 +146,7 @@ bash scripts/setup-python.sh
 - [第二阶段：从 CAN 广播到诊断服务](docs/第二阶段实现与原理.md)
 - [第二阶段质检报告](docs/第二阶段质检报告.md)
 - [Android 构建、AIDL 与模拟器验收](docs/android-client.md)
+- [Agent 循环、MCP、任务状态与预算](docs/agent-runtime.md)
+- [60 项评测构成与评分方法](evaluation/README.md)
 
 个人简历分析调研稿仅保留在本地，不同步至公开仓库。

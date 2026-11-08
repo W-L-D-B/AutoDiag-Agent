@@ -100,6 +100,7 @@ public final class GatewayService extends Service {
             } catch (SocketTimeoutException exception) {
                 return error("", "transport_timeout", "Agent request timed out", true);
             } catch (IOException exception) {
+                android.util.Log.w("AutoDiagGateway", "Agent transport failed", exception);
                 return error("", "unavailable", "Cannot connect to Agent service", true);
             } catch (JSONException exception) {
                 return error("", "protocol_error", "Invalid Agent JSON response", false);

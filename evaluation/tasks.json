@@ -1,0 +1,796 @@
+{
+  "schema_version": 1,
+  "description": "12 task families x 5 real seed/counter variants; 36 development, 24 held-out. Truth is evaluator-only.",
+  "tasks": [
+    {
+      "id": "task-001",
+      "family": "normal",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "检查 BMS、HVAC 和 Body 的当前状态，判断是否存在可证实的异常。",
+      "expected_codes": [
+        "healthy"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-002",
+      "family": "normal",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "检查 BMS、HVAC 和 Body 的当前状态，判断是否存在可证实的异常。",
+      "expected_codes": [
+        "healthy"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-003",
+      "family": "normal",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "检查 BMS、HVAC 和 Body 的当前状态，判断是否存在可证实的异常。",
+      "expected_codes": [
+        "healthy"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-004",
+      "family": "normal",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "检查 BMS、HVAC 和 Body 的当前状态，判断是否存在可证实的异常。",
+      "expected_codes": [
+        "healthy"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-005",
+      "family": "normal",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "检查 BMS、HVAC 和 Body 的当前状态，判断是否存在可证实的异常。",
+      "expected_codes": [
+        "healthy"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-006",
+      "family": "data_loss",
+      "split": "development",
+      "scenario": "drop_bms_data",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "BMS 页面读数停止更新。请比较心跳、数据新鲜度和诊断通路，定位问题层次。",
+      "expected_codes": [
+        "data_stale"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-007",
+      "family": "data_loss",
+      "split": "development",
+      "scenario": "drop_bms_data",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "BMS 页面读数停止更新。请比较心跳、数据新鲜度和诊断通路，定位问题层次。",
+      "expected_codes": [
+        "data_stale"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-008",
+      "family": "data_loss",
+      "split": "development",
+      "scenario": "drop_bms_data",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "BMS 页面读数停止更新。请比较心跳、数据新鲜度和诊断通路，定位问题层次。",
+      "expected_codes": [
+        "data_stale"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-009",
+      "family": "data_loss",
+      "split": "holdout",
+      "scenario": "drop_bms_data",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "BMS 页面读数停止更新。请比较心跳、数据新鲜度和诊断通路，定位问题层次。",
+      "expected_codes": [
+        "data_stale"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-010",
+      "family": "data_loss",
+      "split": "holdout",
+      "scenario": "drop_bms_data",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "BMS 页面读数停止更新。请比较心跳、数据新鲜度和诊断通路，定位问题层次。",
+      "expected_codes": [
+        "data_stale"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-011",
+      "family": "crc",
+      "split": "development",
+      "scenario": "corrupt_hvac_crc",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "HVAC 的数据显示异常。请检查传输有效性和拒绝计数，给出证据。",
+      "expected_codes": [
+        "bad_crc"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-012",
+      "family": "crc",
+      "split": "development",
+      "scenario": "corrupt_hvac_crc",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "HVAC 的数据显示异常。请检查传输有效性和拒绝计数，给出证据。",
+      "expected_codes": [
+        "bad_crc"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-013",
+      "family": "crc",
+      "split": "development",
+      "scenario": "corrupt_hvac_crc",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "HVAC 的数据显示异常。请检查传输有效性和拒绝计数，给出证据。",
+      "expected_codes": [
+        "bad_crc"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-014",
+      "family": "crc",
+      "split": "holdout",
+      "scenario": "corrupt_hvac_crc",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "HVAC 的数据显示异常。请检查传输有效性和拒绝计数，给出证据。",
+      "expected_codes": [
+        "bad_crc"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-015",
+      "family": "crc",
+      "split": "holdout",
+      "scenario": "corrupt_hvac_crc",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "HVAC 的数据显示异常。请检查传输有效性和拒绝计数，给出证据。",
+      "expected_codes": [
+        "bad_crc"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-016",
+      "family": "frozen_counter",
+      "split": "development",
+      "scenario": "body_sequence_freeze",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "Body 的数据为什么没有有效更新？请区分进程存活与有效状态帧。",
+      "expected_codes": [
+        "duplicate_counter"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-017",
+      "family": "frozen_counter",
+      "split": "development",
+      "scenario": "body_sequence_freeze",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "Body 的数据为什么没有有效更新？请区分进程存活与有效状态帧。",
+      "expected_codes": [
+        "duplicate_counter"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-018",
+      "family": "frozen_counter",
+      "split": "development",
+      "scenario": "body_sequence_freeze",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "Body 的数据为什么没有有效更新？请区分进程存活与有效状态帧。",
+      "expected_codes": [
+        "duplicate_counter"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-019",
+      "family": "frozen_counter",
+      "split": "holdout",
+      "scenario": "body_sequence_freeze",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "Body 的数据为什么没有有效更新？请区分进程存活与有效状态帧。",
+      "expected_codes": [
+        "duplicate_counter"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-020",
+      "family": "frozen_counter",
+      "split": "holdout",
+      "scenario": "body_sequence_freeze",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "Body 的数据为什么没有有效更新？请区分进程存活与有效状态帧。",
+      "expected_codes": [
+        "duplicate_counter"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-021",
+      "family": "temperature",
+      "split": "development",
+      "scenario": "bms_overtemperature",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "检查 BMS 温度异常，区分有效高温测量与通信错误。",
+      "expected_codes": [
+        "overtemperature"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-022",
+      "family": "temperature",
+      "split": "development",
+      "scenario": "bms_overtemperature",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "检查 BMS 温度异常，区分有效高温测量与通信错误。",
+      "expected_codes": [
+        "overtemperature"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-023",
+      "family": "temperature",
+      "split": "development",
+      "scenario": "bms_overtemperature",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "检查 BMS 温度异常，区分有效高温测量与通信错误。",
+      "expected_codes": [
+        "overtemperature"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-024",
+      "family": "temperature",
+      "split": "holdout",
+      "scenario": "bms_overtemperature",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "检查 BMS 温度异常，区分有效高温测量与通信错误。",
+      "expected_codes": [
+        "overtemperature"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-025",
+      "family": "temperature",
+      "split": "holdout",
+      "scenario": "bms_overtemperature",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "检查 BMS 温度异常，区分有效高温测量与通信错误。",
+      "expected_codes": [
+        "overtemperature"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-026",
+      "family": "lin_input",
+      "split": "development",
+      "scenario": "lin_bad_checksum",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "检查 HVAC 的温度输入是否可信，区分 CAN 传输与传感器输入质量。",
+      "expected_codes": [
+        "lin_input_invalid"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-027",
+      "family": "lin_input",
+      "split": "development",
+      "scenario": "lin_bad_checksum",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "检查 HVAC 的温度输入是否可信，区分 CAN 传输与传感器输入质量。",
+      "expected_codes": [
+        "lin_input_invalid"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-028",
+      "family": "lin_input",
+      "split": "development",
+      "scenario": "lin_bad_checksum",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "检查 HVAC 的温度输入是否可信，区分 CAN 传输与传感器输入质量。",
+      "expected_codes": [
+        "lin_input_invalid"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-029",
+      "family": "lin_input",
+      "split": "holdout",
+      "scenario": "lin_bad_checksum",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "检查 HVAC 的温度输入是否可信，区分 CAN 传输与传感器输入质量。",
+      "expected_codes": [
+        "lin_input_invalid"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-030",
+      "family": "lin_input",
+      "split": "holdout",
+      "scenario": "lin_bad_checksum",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "检查 HVAC 的温度输入是否可信，区分 CAN 传输与传感器输入质量。",
+      "expected_codes": [
+        "lin_input_invalid"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-031",
+      "family": "node_exit",
+      "split": "development",
+      "scenario": "node_exit",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "Body 的车身数据不更新，请判断该 ECU 当前是否在线并说明依据。",
+      "expected_codes": [
+        "ecu_offline"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-032",
+      "family": "node_exit",
+      "split": "development",
+      "scenario": "node_exit",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "Body 的车身数据不更新，请判断该 ECU 当前是否在线并说明依据。",
+      "expected_codes": [
+        "ecu_offline"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-033",
+      "family": "node_exit",
+      "split": "development",
+      "scenario": "node_exit",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "Body 的车身数据不更新，请判断该 ECU 当前是否在线并说明依据。",
+      "expected_codes": [
+        "ecu_offline"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-034",
+      "family": "node_exit",
+      "split": "holdout",
+      "scenario": "node_exit",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "Body 的车身数据不更新，请判断该 ECU 当前是否在线并说明依据。",
+      "expected_codes": [
+        "ecu_offline"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-035",
+      "family": "node_exit",
+      "split": "holdout",
+      "scenario": "node_exit",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "Body 的车身数据不更新，请判断该 ECU 当前是否在线并说明依据。",
+      "expected_codes": [
+        "ecu_offline"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-036",
+      "family": "old_sequence",
+      "split": "development",
+      "scenario": "old_bms_sequence",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "BMS 持续有报文到达，但业务数据没有更新。检查旧序号和新鲜度。",
+      "expected_codes": [
+        "old_sequence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-037",
+      "family": "old_sequence",
+      "split": "development",
+      "scenario": "old_bms_sequence",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "BMS 持续有报文到达，但业务数据没有更新。检查旧序号和新鲜度。",
+      "expected_codes": [
+        "old_sequence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-038",
+      "family": "old_sequence",
+      "split": "development",
+      "scenario": "old_bms_sequence",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "BMS 持续有报文到达，但业务数据没有更新。检查旧序号和新鲜度。",
+      "expected_codes": [
+        "old_sequence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-039",
+      "family": "old_sequence",
+      "split": "holdout",
+      "scenario": "old_bms_sequence",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "BMS 持续有报文到达，但业务数据没有更新。检查旧序号和新鲜度。",
+      "expected_codes": [
+        "old_sequence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-040",
+      "family": "old_sequence",
+      "split": "holdout",
+      "scenario": "old_bms_sequence",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "BMS 持续有报文到达，但业务数据没有更新。检查旧序号和新鲜度。",
+      "expected_codes": [
+        "old_sequence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-041",
+      "family": "scale",
+      "split": "development",
+      "scenario": "wrong_bms_scale",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "BMS 页面电压明显不合理。请比较周期 CAN 电压与 D100 诊断值，检查缩放是否一致。",
+      "expected_codes": [
+        "scaling_mismatch"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-042",
+      "family": "scale",
+      "split": "development",
+      "scenario": "wrong_bms_scale",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "BMS 页面电压明显不合理。请比较周期 CAN 电压与 D100 诊断值，检查缩放是否一致。",
+      "expected_codes": [
+        "scaling_mismatch"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-043",
+      "family": "scale",
+      "split": "development",
+      "scenario": "wrong_bms_scale",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "BMS 页面电压明显不合理。请比较周期 CAN 电压与 D100 诊断值，检查缩放是否一致。",
+      "expected_codes": [
+        "scaling_mismatch"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-044",
+      "family": "scale",
+      "split": "holdout",
+      "scenario": "wrong_bms_scale",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "BMS 页面电压明显不合理。请比较周期 CAN 电压与 D100 诊断值，检查缩放是否一致。",
+      "expected_codes": [
+        "scaling_mismatch"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-045",
+      "family": "scale",
+      "split": "holdout",
+      "scenario": "wrong_bms_scale",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "BMS 页面电压明显不合理。请比较周期 CAN 电压与 D100 诊断值，检查缩放是否一致。",
+      "expected_codes": [
+        "scaling_mismatch"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-046",
+      "family": "service",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "现在无法取得车辆状态。请先判断采集服务是否可用，不要把服务故障当成 ECU 掉线。",
+      "expected_codes": [
+        "service_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "stop_service"
+    },
+    {
+      "id": "task-047",
+      "family": "service",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "现在无法取得车辆状态。请先判断采集服务是否可用，不要把服务故障当成 ECU 掉线。",
+      "expected_codes": [
+        "service_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "stop_service"
+    },
+    {
+      "id": "task-048",
+      "family": "service",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "现在无法取得车辆状态。请先判断采集服务是否可用，不要把服务故障当成 ECU 掉线。",
+      "expected_codes": [
+        "service_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "stop_service"
+    },
+    {
+      "id": "task-049",
+      "family": "service",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "现在无法取得车辆状态。请先判断采集服务是否可用，不要把服务故障当成 ECU 掉线。",
+      "expected_codes": [
+        "service_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "stop_service"
+    },
+    {
+      "id": "task-050",
+      "family": "service",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "现在无法取得车辆状态。请先判断采集服务是否可用，不要把服务故障当成 ECU 掉线。",
+      "expected_codes": [
+        "service_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "stop_service"
+    },
+    {
+      "id": "task-051",
+      "family": "history",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "请给出昨天凌晨两点 BMS 的准确温度，必须有当时的采样证据；没有就明确说明数据不足。",
+      "expected_codes": [
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-052",
+      "family": "history",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "请给出昨天凌晨两点 BMS 的准确温度，必须有当时的采样证据；没有就明确说明数据不足。",
+      "expected_codes": [
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-053",
+      "family": "history",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "请给出昨天凌晨两点 BMS 的准确温度，必须有当时的采样证据；没有就明确说明数据不足。",
+      "expected_codes": [
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-054",
+      "family": "history",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "请给出昨天凌晨两点 BMS 的准确温度，必须有当时的采样证据；没有就明确说明数据不足。",
+      "expected_codes": [
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-055",
+      "family": "history",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "请给出昨天凌晨两点 BMS 的准确温度，必须有当时的采样证据；没有就明确说明数据不足。",
+      "expected_codes": [
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-056",
+      "family": "unsupported_did",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 1,
+      "counter_start": 0,
+      "question": "读取 BMS 的 DID 0x9999。如果 ECU 不支持该 DID，请明确说明诊断不可用，不要编造数值。",
+      "expected_codes": [
+        "diagnostic_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-057",
+      "family": "unsupported_did",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 2,
+      "counter_start": 64,
+      "question": "读取 BMS 的 DID 0x9999。如果 ECU 不支持该 DID，请明确说明诊断不可用，不要编造数值。",
+      "expected_codes": [
+        "diagnostic_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-058",
+      "family": "unsupported_did",
+      "split": "development",
+      "scenario": "baseline",
+      "seed": 3,
+      "counter_start": 127,
+      "question": "读取 BMS 的 DID 0x9999。如果 ECU 不支持该 DID，请明确说明诊断不可用，不要编造数值。",
+      "expected_codes": [
+        "diagnostic_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-059",
+      "family": "unsupported_did",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 4,
+      "counter_start": 250,
+      "question": "读取 BMS 的 DID 0x9999。如果 ECU 不支持该 DID，请明确说明诊断不可用，不要编造数值。",
+      "expected_codes": [
+        "diagnostic_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    },
+    {
+      "id": "task-060",
+      "family": "unsupported_did",
+      "split": "holdout",
+      "scenario": "baseline",
+      "seed": 5,
+      "counter_start": 255,
+      "question": "读取 BMS 的 DID 0x9999。如果 ECU 不支持该 DID，请明确说明诊断不可用，不要编造数值。",
+      "expected_codes": [
+        "diagnostic_unavailable",
+        "insufficient_evidence"
+      ],
+      "preparation": "none"
+    }
+  ]
+}
