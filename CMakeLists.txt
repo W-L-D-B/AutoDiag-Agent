@@ -21,7 +21,9 @@ if(AUTODIAG_SANITIZERS)
     target_link_options(autodiag_options INTERFACE -fsanitize=address,undefined)
 endif()
 if(AUTODIAG_COVERAGE)
-    target_compile_options(autodiag_options INTERFACE --coverage -O0 -g)
+    # CMake may resolve pthread symbols from libc without adding -pthread. GCC
+    # then defaults to single-threaded profile updates despite our worker threads.
+    target_compile_options(autodiag_options INTERFACE --coverage -fprofile-update=atomic -O0 -g)
     target_link_options(autodiag_options INTERFACE --coverage)
 endif()
 
