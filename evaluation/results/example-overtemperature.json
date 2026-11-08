@@ -1,0 +1,355 @@
+{
+  "task_id": "e44f8c88c17e4b85ac01f03c565d61ee",
+  "status": "completed",
+  "question": "检查 BMS 温度异常，区分有效高温测量与通信错误。",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "preflight",
+      "tool": "get_service_health",
+      "summary": "get_service_health completed with observed evidence",
+      "status": "success",
+      "evidence_ids": [
+        "agent:e44f8c88c17e4b85ac01f03c565d61ee:0",
+        "boot-905-140088783314:rpc:67",
+        "boot-905-140088783314:rpc:68"
+      ],
+      "data": {
+        "service": {
+          "boot_id": "boot-905-140088783314",
+          "collector_running": true,
+          "evidence_id": "boot-905-140088783314:rpc:67",
+          "interface": "vcan0",
+          "observed_at_ms": 1379,
+          "service": "autodiag-service",
+          "uptime_ms": 1379
+        },
+        "snapshot": {
+          "elapsed_ms": 1380,
+          "evidence_id": "boot-905-140088783314:rpc:68",
+          "global_rejections": {
+            "bad_crc": 0,
+            "bad_length": 0,
+            "duplicate": 0,
+            "invalid_flags": 0,
+            "invalid_payload": 0,
+            "old": 0,
+            "unknown_id": 0
+          },
+          "nodes": {
+            "bms": {
+              "data_age_ms": 36,
+              "data_counter": 13,
+              "data_status": "fresh",
+              "heartbeat_age_ms": 86,
+              "heartbeat_counter": 5,
+              "online": true,
+              "rejections": {
+                "bad_crc": 0,
+                "bad_length": 0,
+                "duplicate": 0,
+                "invalid_flags": 0,
+                "invalid_payload": 0,
+                "old": 0,
+                "unknown_id": 0
+              },
+              "resynchronizations": 0,
+              "signals": {
+                "current_a": 12.8,
+                "temperature_c": 125.0,
+                "voltage_v": 400.3
+              }
+            },
+            "body": {
+              "data_age_ms": 36,
+              "data_counter": 13,
+              "data_status": "fresh",
+              "heartbeat_age_ms": 86,
+              "heartbeat_counter": 5,
+              "online": true,
+              "rejections": {
+                "bad_crc": 0,
+                "bad_length": 0,
+                "duplicate": 0,
+                "invalid_flags": 0,
+                "invalid_payload": 0,
+                "old": 0,
+                "unknown_id": 0
+              },
+              "resynchronizations": 0,
+              "signals": {
+                "door_mask": 3,
+                "light_mask": 1,
+                "speed_kph": 12.37,
+                "supply_voltage_v": 12.34
+              }
+            },
+            "hvac": {
+              "data_age_ms": 36,
+              "data_counter": 13,
+              "data_status": "fresh",
+              "heartbeat_age_ms": 86,
+              "heartbeat_counter": 5,
+              "online": true,
+              "rejections": {
+                "bad_crc": 0,
+                "bad_length": 0,
+                "duplicate": 0,
+                "invalid_flags": 0,
+                "invalid_payload": 0,
+                "old": 0,
+                "unknown_id": 0
+              },
+              "resynchronizations": 0,
+              "signals": {
+                "cabin_sensor_valid": true,
+                "cabin_temperature_c": 21.3,
+                "fan_level": 2,
+                "target_temperature_c": 22.0
+              }
+            }
+          },
+          "observed_at_ms": 1380
+        }
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool",
+      "tool": "read_did",
+      "summary": "read_did completed with observed evidence",
+      "status": "success",
+      "evidence_ids": [
+        "agent:e44f8c88c17e4b85ac01f03c565d61ee:1",
+        "boot-905-140088783314:rpc:110"
+      ],
+      "data": {
+        "did": 53506,
+        "evidence_id": "boot-905-140088783314:rpc:110",
+        "node": "bms",
+        "observed_at_ms": 2719,
+        "raw_hex": "E204",
+        "response_hex": "62D102E204",
+        "units": {
+          "temperature_c": "degC"
+        },
+        "valid": true,
+        "values": {
+          "temperature_c": 125.0
+        }
+      }
+    },
+    {
+      "index": 2,
+      "kind": "tool",
+      "tool": "get_signal_window",
+      "summary": "get_signal_window completed with observed evidence",
+      "status": "success",
+      "evidence_ids": [
+        "agent:e44f8c88c17e4b85ac01f03c565d61ee:2",
+        "boot-905-140088783314:rpc:111",
+        "boot-905-140088783314:sample:102",
+        "boot-905-140088783314:sample:105",
+        "boot-905-140088783314:sample:59",
+        "boot-905-140088783314:sample:61",
+        "boot-905-140088783314:sample:64",
+        "boot-905-140088783314:sample:69",
+        "boot-905-140088783314:sample:72",
+        "boot-905-140088783314:sample:76",
+        "boot-905-140088783314:sample:80",
+        "boot-905-140088783314:sample:81",
+        "boot-905-140088783314:sample:84",
+        "boot-905-140088783314:sample:88",
+        "boot-905-140088783314:sample:90",
+        "boot-905-140088783314:sample:93",
+        "boot-905-140088783314:sample:96",
+        "boot-905-140088783314:sample:99"
+      ],
+      "data": {
+        "evidence_id": "boot-905-140088783314:rpc:111",
+        "latest_ms": 2643,
+        "node": "bms",
+        "observed_at_ms": 2738,
+        "oldest_available_ms": 43,
+        "returned_count": 16,
+        "sample_count": 27,
+        "samples": [
+          {
+            "evidence_id": "boot-905-140088783314:sample:59",
+            "t_ms": 1144,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:61",
+            "t_ms": 1243,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:64",
+            "t_ms": 1344,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:69",
+            "t_ms": 1443,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:72",
+            "t_ms": 1543,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:76",
+            "t_ms": 1644,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:80",
+            "t_ms": 1744,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:81",
+            "t_ms": 1843,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:84",
+            "t_ms": 1944,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:88",
+            "t_ms": 2044,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:90",
+            "t_ms": 2143,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:93",
+            "t_ms": 2244,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:96",
+            "t_ms": 2343,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:99",
+            "t_ms": 2444,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:102",
+            "t_ms": 2543,
+            "value": 125.0
+          },
+          {
+            "evidence_id": "boot-905-140088783314:sample:105",
+            "t_ms": 2643,
+            "value": 125.0
+          }
+        ],
+        "signal": "temperature_c",
+        "truncated": true,
+        "unit": "degC",
+        "statistics": {
+          "count": 16,
+          "minimum": 125.0,
+          "maximum": 125.0,
+          "mean": 125.0,
+          "latest": 125.0
+        }
+      }
+    },
+    {
+      "index": 3,
+      "kind": "tool",
+      "tool": "read_dtcs",
+      "summary": "read_dtcs completed with observed evidence",
+      "status": "success",
+      "evidence_ids": [
+        "agent:e44f8c88c17e4b85ac01f03c565d61ee:3",
+        "boot-905-140088783314:rpc:116"
+      ],
+      "data": {
+        "dtcs": [
+          {
+            "code": "A10001",
+            "description": "BMS temperature above 90 C",
+            "status": 9
+          }
+        ],
+        "evidence_id": "boot-905-140088783314:rpc:116",
+        "node": "bms",
+        "observed_at_ms": 2779,
+        "response_hex": "590209A1000109",
+        "status_mask": 255
+      }
+    }
+  ],
+  "report": {
+    "summary": "BMS 在线且数据新鲜：心跳 86ms、数据龄 36ms，CRC/重复/旧序号拒绝均为 0。总线值与 DID D102 读取一致，均为 125.0°C；16 个样本恒为 125.0°C。存在 DTC A10001（温度高于 90°C，status 9）。这是有效高温测量的证据，不是通信错误或缩放错误。",
+    "hypotheses": [
+      {
+        "code": "overtemperature",
+        "title": "BMS 报告的真实高温（125°C）持续存在，已置位 DTC A10001",
+        "evidence_ids": [
+          "boot-905-140088783314:rpc:110",
+          "boot-905-140088783314:rpc:116"
+        ]
+      },
+      {
+        "code": "healthy",
+        "title": "通信链路正常：数据新鲜、拒绝计数全零，排除通信错误与缩放不一致",
+        "evidence_ids": [
+          "boot-905-140088783314:rpc:68",
+          "boot-905-140088783314:rpc:111"
+        ]
+      }
+    ],
+    "facts": [
+      {
+        "statement": "BMS 在线，data_status=fresh，data_age_ms=36，heartbeat_age_ms=86，所有 rejections 均为 0",
+        "evidence_ids": [
+          "boot-905-140088783314:rpc:68"
+        ]
+      },
+      {
+        "statement": "DID D102 原始值 E204 解析为 125.0 degC，valid=true，与总线信号温度一致",
+        "evidence_ids": [
+          "boot-905-140088783314:rpc:110"
+        ]
+      },
+      {
+        "statement": "时间窗口内 16 个样本最小/最大/均值均为 125.0 degC，稳定无跳变",
+        "evidence_ids": [
+          "boot-905-140088783314:rpc:111"
+        ]
+      }
+    ],
+    "limitations": [
+      "仅有 16 个返回样本（窗口 3000ms，window 前段被截断），不能据此判断更早历史趋势。",
+      "DTC status 0x09 仅表示位状态，未执行完整老化/清除循环验证，也未做硬件级温度校验（台架只读）。",
+      "环境注入的高温记录未被独立传感器交叉验证，不构成真实车辆安全结论。"
+    ]
+  },
+  "error": null,
+  "usage": {
+    "model_calls": 2,
+    "tool_calls": 4,
+    "prompt_tokens": 6353,
+    "completion_tokens": 613,
+    "total_tokens": 6966,
+    "elapsed_ms": 5077,
+    "incomplete_calls": 0
+  },
+  "created_at": 1794154124.7512612,
+  "updated_at": 1794154129.8402429,
+  "provider_mode": "live"
+}

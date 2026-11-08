@@ -1,0 +1,11 @@
+{
+  "source_revision": "40e8221e8c7c51b068f5cd740fce95667b5013fa",
+  "task_set_sha256": "7192295cdabf753e134a15f65f5b82007f4574bac3a70d3c4f83d441c4e1e753",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "max_output_tokens": 2048,
+  "max_calls_per_task": 8,
+  "mode": "live",
+  "scope": "60 frozen tasks, real native vcan bench per task",
+  "eval_observed_budget_cny": 4.5
+}

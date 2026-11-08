@@ -9,10 +9,10 @@
 | crc | 5 | HVAC 应用 CRC 拒绝 |
 | frozen_counter | 5 | Body 重复序号拒绝 |
 | temperature | 5 | BMS 125°C 与实际 DTC |
-| lin | 5 | HVAC 温度输入无效 |
+| lin_input | 5 | HVAC 温度输入无效 |
 | node_exit | 5 | Body 心跳离线 |
 | old_sequence | 5 | BMS 旧序号拒绝 |
-| scaling | 5 | BMS 广播与 DID 电压不一致 |
+| scale | 5 | BMS 广播与 DID 电压不一致 |
 | service | 5 | 停止实际采集服务 |
 | history | 5 | 请求台架未保留的历史证据 |
 | unsupported_did | 5 | 未知 DID 得到实际否定响应 |

@@ -4,6 +4,8 @@
 
 远程仓库：<https://github.com/W-L-D-B/AutoDiag-Agent>
 
+完整工程门禁已通过；首次冻结的 60 项真实模型评测完成并正确定位 55 项（91.7%），规则基线 60/60。5 项模型响应被严格校验拒绝；12 份定向抽查发现一处数值解释错误，引用有效不能代表全文事实正确。详见 [完整质检与评测报告](docs/完整项目质检与评测报告.md)。
+
 ## 开发环境
 
 - Windows 11 + WSL2，独立发行版 `AutoDiagUbuntu`（Ubuntu 24.04）。
@@ -148,5 +150,9 @@ bash scripts/setup-python.sh
 - [Android 构建、AIDL 与模拟器验收](docs/android-client.md)
 - [Agent 循环、MCP、任务状态与预算](docs/agent-runtime.md)
 - [60 项评测构成与评分方法](evaluation/README.md)
+- [从定义开始的完整项目教学与演示](docs/完整项目教学与演示.md)
+- [完整质检、60 项真实模型结果与已知边界](docs/完整项目质检与评测报告.md)
+
+<img src="docs/images/android-live.png" width="320" alt="Android 经独立 AIDL 服务显示三个 ECU 的实时信号">
 
 个人简历分析调研稿仅保留在本地，不同步至公开仓库。

@@ -1,0 +1,26 @@
+{
+  "method": "First completed report per family, 12 directed samples; inspect against actual tool data; not a random statistical estimate",
+  "selected_task_ids": [
+    "task-001",
+    "task-006",
+    "task-011",
+    "task-016",
+    "task-021",
+    "task-026",
+    "task-031",
+    "task-036",
+    "task-041",
+    "task-046",
+    "task-051",
+    "task-056"
+  ],
+  "completed_reports_revalidated": 55,
+  "known_numeric_explanation_errors": [
+    {
+      "task_id": "task-041",
+      "finding": "Root code is correct, but model fact converts raw bytes A30F with wrong endianness/scale and arithmetic.",
+      "correct_interpretation": "A3 0F little-endian = 4003; 4003 * 0.1 V = 400.3 V."
+    }
+  ],
+  "limitation": "Citation-ID validation does not establish semantic entailment or zero hallucinations."
+}
