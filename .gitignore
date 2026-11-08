@@ -32,6 +32,12 @@ Thumbs.db
 # Generated runtime data
 logs/
 artifacts/
+*.apk
+*.jks
+*.keystore
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
 
 # Personal career research kept locally
 docs/小米汽车_C++实习_Agent项目调研与方案.md

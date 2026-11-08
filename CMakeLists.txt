@@ -31,6 +31,10 @@ add_library(autodiag_core
     src/state.cpp
     src/socketcan.cpp
     src/cli.cpp
+    src/diagnostics.cpp
+    src/isotp.cpp
+    src/framed_rpc.cpp
+    src/service.cpp
 )
 target_include_directories(autodiag_core PUBLIC include)
 target_link_libraries(autodiag_core PUBLIC autodiag_options nlohmann_json::nlohmann_json Threads::Threads)
@@ -39,6 +43,10 @@ add_executable(autodiag-ecu apps/ecu_main.cpp)
 target_link_libraries(autodiag-ecu PRIVATE autodiag_core)
 add_executable(autodiag-monitor apps/monitor_main.cpp)
 target_link_libraries(autodiag-monitor PRIVATE autodiag_core)
+add_executable(autodiag-service apps/service_main.cpp)
+target_link_libraries(autodiag-service PRIVATE autodiag_core)
+add_executable(autodiag-gateway apps/gateway_main.cpp)
+target_link_libraries(autodiag-gateway PRIVATE autodiag_core)
 
 add_executable(autodiag-env-check tools/cpp_env_check.cpp)
 target_link_libraries(autodiag-env-check PRIVATE autodiag_options)
@@ -53,6 +61,9 @@ if(BUILD_TESTING)
         tests/unit/state_test.cpp
         tests/unit/socketcan_test.cpp
         tests/unit/cli_test.cpp
+        tests/unit/diagnostics_test.cpp
+        tests/unit/rpc_test.cpp
+        tests/unit/service_test.cpp
     )
     target_link_libraries(autodiag_unit_tests PRIVATE autodiag_core GTest::gtest_main)
     include(GoogleTest)

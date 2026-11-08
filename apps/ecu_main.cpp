@@ -1,4 +1,6 @@
 #include "autodiag/cli.hpp"
+#include "autodiag/diagnostics.hpp"
+#include "autodiag/isotp.hpp"
 #include "autodiag/lin.hpp"
 #include "autodiag/protocol.hpp"
 #include "autodiag/socketcan.hpp"
@@ -10,7 +12,10 @@
 #include <exception>
 #include <iostream>
 #include <optional>
+#include <stdexcept>
 #include <thread>
+#include <variant>
+#include <vector>
 
 namespace {
 
@@ -92,6 +97,35 @@ extern "C" void request_stop(int) {
                                                           counter_at(options.counter_start, tick)});
 }
 
+void apply_wire_fault(const autodiag::EcuOptions &options, const bool active,
+                      autodiag::Frame &frame, std::optional<std::uint8_t> &old_counter) {
+    if (!active || options.fault != autodiag::Fault::old_sequence) {
+        old_counter.reset();
+    }
+    if (!active) {
+        return;
+    }
+    if (options.fault == autodiag::Fault::old_sequence) {
+        if (!old_counter.has_value()) {
+            // Adding 254 and narrowing to uint8_t is a defined modulo-256 subtraction of two.
+            old_counter = static_cast<std::uint8_t>(frame.data.at(6U) + 254U);
+        }
+        frame.data.at(6U) = *old_counter;
+        frame.data.at(7U) = autodiag::app_crc8(frame.can_id, frame.data);
+    } else if (options.fault == autodiag::Fault::wrong_scale) {
+        const autodiag::DecodeResult clean = autodiag::decode_frame(frame);
+        const auto *bms = std::get_if<autodiag::BmsStatus>(&clean.payload);
+        if (bms == nullptr) {
+            throw std::logic_error{"wrong_scale requires a clean BMS frame"};
+        }
+        autodiag::BmsStatus scaled = *bms;
+        scaled.voltage_deci_volts = static_cast<std::uint16_t>(scaled.voltage_deci_volts / 10U);
+        frame = autodiag::encode_bms_status(scaled);
+    } else if (options.fault == autodiag::Fault::bad_crc) {
+        frame.data.at(7U) ^= 0x01U;
+    }
+}
+
 [[nodiscard]] std::uint64_t elapsed_ms(const std::chrono::steady_clock::time_point start) {
     return static_cast<std::uint64_t>(std::chrono::duration_cast<std::chrono::milliseconds>(
                                           std::chrono::steady_clock::now() - start)
@@ -100,13 +134,19 @@ extern "C" void request_stop(int) {
 
 int run(const autodiag::EcuOptions &options) {
     autodiag::SocketCan socket = autodiag::SocketCan::open_virtual(options.interface_name);
+    autodiag::IsotpSocket diagnostics =
+        autodiag::IsotpSocket::open_server(options.interface_name, options.node);
+    autodiag::UdsServer uds{options.node};
     const auto start = std::chrono::steady_clock::now();
     std::uint64_t next_data_ms{};
     std::uint64_t next_heartbeat_ms{};
     std::uint64_t data_tick{};
     std::uint64_t heartbeat_tick{};
     std::optional<std::uint8_t> frozen_counter{};
+    std::optional<std::uint8_t> old_counter{};
     std::int16_t last_good_hvac_temperature{210};
+    autodiag::Frame current_sample{};
+    std::optional<std::vector<std::uint8_t>> pending_response{};
 
     while (g_stop_requested == 0) {
         const std::uint64_t now_ms = elapsed_ms(start);
@@ -119,12 +159,11 @@ int run(const autodiag::EcuOptions &options) {
             if (active && options.fault == autodiag::Fault::exit_process) {
                 return 42;
             }
+            current_sample = make_data_frame(options, data_tick, active, frozen_counter,
+                                             last_good_hvac_temperature);
             if (!(active && options.fault == autodiag::Fault::drop_data)) {
-                autodiag::Frame frame = make_data_frame(options, data_tick, active, frozen_counter,
-                                                        last_good_hvac_temperature);
-                if (active && options.fault == autodiag::Fault::bad_crc) {
-                    frame.data.at(7U) ^= 0x01U;
-                }
+                autodiag::Frame frame = current_sample;
+                apply_wire_fault(options, active, frame, old_counter);
                 socket.send(frame);
             }
             ++data_tick;
@@ -139,6 +178,18 @@ int run(const autodiag::EcuOptions &options) {
             socket.send(make_heartbeat(options, elapsed_ms(start), heartbeat_tick, active));
             ++heartbeat_tick;
             next_heartbeat_ms += 250U;
+        }
+
+        if (pending_response.has_value() && diagnostics.try_send(*pending_response)) {
+            pending_response.reset();
+        }
+        if (!pending_response.has_value()) {
+            if (const auto request = diagnostics.receive_nowait(); request.has_value()) {
+                pending_response = uds.handle(*request, elapsed_ms(start), current_sample);
+                if (diagnostics.try_send(*pending_response)) {
+                    pending_response.reset();
+                }
+            }
         }
 
         const std::uint64_t next_event_ms = std::min(next_data_ms, next_heartbeat_ms);

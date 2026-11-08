@@ -7,6 +7,8 @@
     "body_sequence_freeze": {"node": "body", "fault": "freeze_counter"},
     "bms_overtemperature": {"node": "bms", "fault": "overtemperature"},
     "lin_bad_checksum": {"node": "hvac", "fault": "lin_bad_checksum"},
-    "node_exit": {"node": "body", "fault": "exit"}
+    "node_exit": {"node": "body", "fault": "exit"},
+    "old_bms_sequence": {"node": "bms", "fault": "old_sequence"},
+    "wrong_bms_scale": {"node": "bms", "fault": "wrong_scale"}
   }
 }

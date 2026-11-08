@@ -27,6 +27,8 @@ SCENARIOS = (
     "bms_overtemperature",
     "lin_bad_checksum",
     "node_exit",
+    "old_bms_sequence",
+    "wrong_bms_scale",
 )
 NODES = ("bms", "hvac", "body")
 

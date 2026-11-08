@@ -71,6 +71,12 @@ template <typename Integer> [[nodiscard]] Integer parse_unsigned(const NamedOpti
     if (value == "exit") {
         return Fault::exit_process;
     }
+    if (value == "old_sequence") {
+        return Fault::old_sequence;
+    }
+    if (value == "wrong_scale") {
+        return Fault::wrong_scale;
+    }
     throw UsageError{"invalid --fault value"};
 }
 
@@ -80,6 +86,9 @@ void validate_fault(const EcuOptions &options) {
     }
     if (options.fault == Fault::lin_bad_checksum && options.node != Node::hvac) {
         throw UsageError{"lin_bad_checksum fault only applies to hvac"};
+    }
+    if (options.fault == Fault::wrong_scale && options.node != Node::bms) {
+        throw UsageError{"wrong_scale fault only applies to bms"};
     }
 }
 
@@ -176,6 +185,10 @@ std::string_view fault_name(const Fault fault) noexcept {
         return "lin_bad_checksum";
     case Fault::exit_process:
         return "exit";
+    case Fault::old_sequence:
+        return "old_sequence";
+    case Fault::wrong_scale:
+        return "wrong_scale";
     }
     return "none";
 }

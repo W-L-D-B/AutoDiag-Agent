@@ -51,5 +51,33 @@ TEST(cli_test, rejects_missing_values_and_invalid_fault_node_combinations) {
                  UsageError);
 }
 
+TEST(cli_test, accepts_old_sequence_wire_fault_for_any_node) {
+    const EcuOptions options =
+        parse_ecu({"autodiag-ecu", "--node", "body", "--fault", "old_sequence"});
+    EXPECT_EQ(options.fault, Fault::old_sequence);
+    EXPECT_EQ(fault_name(options.fault), "old_sequence");
+}
+
+TEST(cli_test, restricts_wrong_scale_wire_fault_to_bms) {
+    const EcuOptions options =
+        parse_ecu({"autodiag-ecu", "--node", "bms", "--fault", "wrong_scale"});
+    EXPECT_EQ(options.fault, Fault::wrong_scale);
+    EXPECT_EQ(fault_name(options.fault), "wrong_scale");
+    EXPECT_THROW(parse_ecu({"autodiag-ecu", "--node", "hvac", "--fault", "wrong_scale"}),
+                 UsageError);
+    EXPECT_THROW(parse_ecu({"autodiag-ecu", "--node", "body", "--fault", "wrong_scale"}),
+                 UsageError);
+}
+
+TEST(cli_test, wire_fault_activation_uses_the_existing_half_open_window) {
+    const EcuOptions options =
+        parse_ecu({"autodiag-ecu", "--node", "bms", "--fault", "old_sequence", "--fault-after-ms",
+                   "400", "--fault-duration-ms", "400"});
+    EXPECT_FALSE(fault_is_active(options, 399U));
+    EXPECT_TRUE(fault_is_active(options, 400U));
+    EXPECT_TRUE(fault_is_active(options, 799U));
+    EXPECT_FALSE(fault_is_active(options, 800U));
+}
+
 } // namespace
 } // namespace autodiag

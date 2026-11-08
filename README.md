@@ -1,6 +1,6 @@
 # AutoDiag-Agent
 
-车载故障诊断与联调 Agent 项目。前两周交付了纯软件通信台架：三个独立 C++ ECU、一个 C++ 监视器、CAN/DBC 协议、LIN 温度模型、七类正常/故障场景及独立日志回放。诊断 Agent、UDS 业务服务和 Android 应用按后续里程碑开发。
+车载故障诊断与联调 Agent 项目。现已交付三个独立 C++ ECU、CAN/DBC、LIN 温度模型、九类正常/故障场景及独立日志回放，并新增原生 ISO-TP/UDS 诊断、持续采集服务和 Unix/TCP 接口。Android 与模型 Agent 按后续里程碑验收。
 
 远程仓库：<https://github.com/W-L-D-B/AutoDiag-Agent>
 
@@ -56,8 +56,28 @@ python scripts/replay_log.py --dbc config/autodiag.dbc --log artifacts/demo-crc/
 | bms_overtemperature | 125°C 是有效传输的数据，留给业务诊断判断 |
 | lin_bad_checksum | HVAC 保留上次好温度，传感器有效位清零 |
 | node_exit | Body 预期退出 42，心跳超时后 offline |
+| old_bms_sequence | CRC 正确，但旧序号被拒绝，数据最终 stale |
+| wrong_bms_scale | 总线电压缩小十倍，诊断 DID 仍返回内部模型电压 |
 
 `manifest.json` 记录进程启动与退出，`frames.jsonl` 保存逐帧证据，`snapshot.json` 给出最终状态。独立回放器根据 DBC 与协议重新计算结果，并检查在线判定是否一致。
+
+## 持续服务与诊断
+
+在一个已激活 Python 环境的 WSL 终端运行：
+
+```bash
+python -m scripts.live_stack --scenario baseline
+```
+
+另一个 WSL 终端进入同一仓库并激活环境，读取持续更新的数据：
+
+```bash
+python -m scripts.rpc_client --method snapshot
+python -m scripts.rpc_client --method read_did --params '{"node":"bms","did":53506}'
+python -m scripts.rpc_client --method read_dtcs --params '{"node":"bms"}'
+```
+
+`53506 = 0xD102`，是 BMS 温度 DID。Ctrl+C 会停止该次启动的 ECU、服务和网关。TCP 仅监听 `127.0.0.1:18770`，不是公网接口。诊断发送后超时会隔离该 ECU 的诊断通道，重新运行整套台架恢复，详见接口契约。
 
 ## 质量检查
 
@@ -102,5 +122,9 @@ bash scripts/setup-python.sh
 - [协议 v1：报文、时间与证据格式](docs/protocol-v1.md)
 - [从定义开始的实现讲解](docs/前两周实现与原理.md)
 - [前两周质检结果与复现方法](docs/前两周质检报告.md)
+- [完整交付计划与验收矩阵](docs/completion-plan.md)
+- [UDS 诊断字节契约](docs/diagnostics-v1.md)
+- [持续服务 RPC 契约](docs/service-api-v1.md)
+- [第二阶段：从 CAN 广播到诊断服务](docs/第二阶段实现与原理.md)
 
 个人简历分析调研稿仅保留在本地，不同步至公开仓库。

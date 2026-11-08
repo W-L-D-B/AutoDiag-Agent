@@ -17,6 +17,8 @@ enum class Fault : std::uint8_t {
     overtemperature,
     lin_bad_checksum,
     exit_process,
+    old_sequence,
+    wrong_scale,
 };
 
 struct EcuOptions {
