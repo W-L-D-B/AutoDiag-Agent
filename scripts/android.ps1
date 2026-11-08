@@ -19,10 +19,10 @@ switch ($Action) {
         }
     }
     'Start' {
-        Start-Process -FilePath $emulator -ArgumentList @('-avd', 'AutoDiag_API35', '-no-snapshot-load')
+        Start-Process -FilePath $emulator -ArgumentList @('-avd', 'AutoDiag_API35', '-no-snapshot-load') -WindowStyle Hidden
     }
     'Studio' {
-        Start-Process -FilePath 'D:\soft\AndroidStudio\bin\studio64.exe' -ArgumentList @((Resolve-Path (Join-Path $PSScriptRoot '..')).Path)
+        Start-Process -FilePath 'D:\soft\AndroidStudio\bin\studio64.exe' -ArgumentList @((Resolve-Path (Join-Path $PSScriptRoot '..')).Path) -WindowStyle Hidden
     }
     'Devices' { & $adb devices -l }
 }

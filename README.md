@@ -1,6 +1,6 @@
 # AutoDiag-Agent
 
-车载故障诊断与联调 Agent 项目。现已交付三个独立 C++ ECU、CAN/DBC、LIN 温度模型、九类正常/故障场景及独立日志回放，并新增原生 ISO-TP/UDS 诊断、持续采集服务和 Unix/TCP 接口。Android 与模型 Agent 按后续里程碑验收。
+车载故障诊断与联调 Agent 项目。现已交付三个独立 C++ ECU、CAN/DBC、LIN 温度模型、九类正常/故障场景及独立日志回放，并新增原生 ISO-TP/UDS 诊断、持续采集服务、Unix/TCP 接口和 Android AIDL 客户端。模型 Agent 按后续里程碑验收。
 
 远程仓库：<https://github.com/W-L-D-B/AutoDiag-Agent>
 
@@ -89,6 +89,8 @@ bash scripts/quality.sh
 
 Windows 中可运行 `.\scripts\android.ps1 Doctor` 检查模拟器加速，使用 `.\scripts\android.ps1 Start` 启动 `AutoDiag_API35`。启动 IDE 使用 `.\scripts\android.ps1 Studio`。WHPX 功能已启用，且已通过实际 Android 15 冷启动验证。
 
+在 Windows 仓库根目录运行 `python android/build.py` 构建调试 APK，输出 `artifacts/android/AutoDiag-Agent-debug.apk`。用 `D:\Android\Sdk\platform-tools\adb.exe install -r artifacts/android/AutoDiag-Agent-debug.apk` 安装后打开 AutoDiag，保持上述 WSL 持续台架运行即可读取信号、DID 和 DTC。已实际验证跨进程 Binder、网关死亡后重绑以及后端断连提示，详见 [Android 客户端说明](docs/android-client.md)。
+
 `vcan0` 由 `autodiag-vcan.service` 随发行版启动自动创建；上面的手动启用命令也可用于恢复。环境检查会实际验证 TCP、Unix Domain Socket、虚拟 CAN 收发、48 字节 ISO-TP 传输和 GitHub 读取，报告写入被忽略的 `artifacts/environment-check.json`。它只发送虚拟总线流量。
 
 ## 环境复现
@@ -126,5 +128,7 @@ bash scripts/setup-python.sh
 - [UDS 诊断字节契约](docs/diagnostics-v1.md)
 - [持续服务 RPC 契约](docs/service-api-v1.md)
 - [第二阶段：从 CAN 广播到诊断服务](docs/第二阶段实现与原理.md)
+- [第二阶段质检报告](docs/第二阶段质检报告.md)
+- [Android 构建、AIDL 与模拟器验收](docs/android-client.md)
 
 个人简历分析调研稿仅保留在本地，不同步至公开仓库。

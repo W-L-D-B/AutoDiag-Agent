@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="connection_status" type="id" />
+    <item name="binder_pids" type="id" />
+    <item name="refresh_button" type="id" />
+    <item name="signals_text" type="id" />
+    <item name="node_spinner" type="id" />
+    <item name="diagnostic_button" type="id" />
+    <item name="dtc_button" type="id" />
+    <item name="diagnostic_text" type="id" />
+    <item name="question_edit" type="id" />
+    <item name="submit_agent_button" type="id" />
+    <item name="cancel_agent_button" type="id" />
+    <item name="resume_agent_button" type="id" />
+    <item name="agent_state" type="id" />
+    <item name="agent_report" type="id" />
+</resources>
